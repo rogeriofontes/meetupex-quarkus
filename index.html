@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Workshop - NodeRed API's</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h3>Microservices com Quarkus</h3>
+					<img data-src="img/quarkus.jpg" width="800" height="400">
+					<h4>SUPERSONIC SUBATOMIC JAVA</h4>
+					<p>
+						<small>Palestrante: <a href="http://rogeriofontes.inf.br" target="_blank">Rogério Fontes</a> / <a href="http://twitter.com/rogeriofontes" target="_blank">@rogeriofontes</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h5>Sobre o palestrante:</h5>
+					<p><span style="font-size:24px">APAIXONADO EM MANEIRAS E FORMAS ÁGEIS DE CRIAR CÓDIGO FONTE. PROGRAMANDO SEMPRE TOMANDO UM BOM CAFÉ E ESCUTANDO UM BELO E PESADO ROCK`N ROLL. TRABALHA A MAIS DE 10 ANOS COM JAVA E LINUX, PASSANDO POR ANDROID, PYTHON, PHP E AGORA COM O CORAÇÃO NO ANGULAR.JS E NODE.JS. PROFESSOR UNIVERSITÁRIO DE REDES DE COMPUTADORES, JAVA E DISPOSITIVOS MÓVEIS. JUGLEADER E CO-FUNDADOR DO UAIJUG (GRUPO DE USUÁRIOS DO TRIÂNGULO MINEIRO) E DO TRIÂNGULO HACKERSPACE. ENGENHEIRO DE MORDENIZAÇÃO - EVERIS/ITAÚ E APAIXONADO POR ESTUDOS MÚSICAIS. </p>
+				</section>
+
+				<section>
+					<a href="http://www.uaijug.com.br/" target="_blank"><img data-src="img/uaijug-300.png" ></a>
+					<a href="http://www.triangulohackerspace.net.br/" target="_blank"><img data-src="img/ths.png"></a>
+				</section>
+
+				<section>
+					<h5>"Quarkus: a next-generation Kubernetes native Java framework"</h5>
+					<p><span style="font-size:24px">Calma já vamos no kotlin :)</span></p>
+					<img data-src="img/canwait-kotlin.jpeg" width="400" height="300">
+				</section>
+				
+				<section>
+					<section>
+						<h5>Antes do Quarkus: O que é microsserviços?</h5>
+						<img data-src="img/microservices-5c41ac.jpg" width="600" height="400">
+					</section>
+
+					<section>
+						<h5>Não existe bala de prata.</h5>
+						<img data-src="img/silver-bullet.jpg" width="600" height="400">
+						<p><span style="font-size:32px">Tudo é em TI é tradeOff. [1]</span></p>
+					</section>
+
+					<section>
+						<h5>Resumindo:</h5>
+						<p><span style="font-size:32px">É um recurso unitário de uma regra de negócio, ou seja, um serviço com essa regra de negócio que podemos
+							gerenciar com bancos de dados, deploy e escalas diferentes e separados.</span></p>
+						<p><span style="font-size:32px"><b>E o Quarkus é Excelente para esse cenário.</b></span></p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h5>Voltando para o Quarkus?</h5>
+						<p><span style="font-size:32px">
+							Quarkus é um framework Java nativo em Kubernetes e de stack completo que foi desenvolvido para máquinas virtuais Java (JVMs) e compilação nativa.
+							Feito sob medida para o GraalVM e OpenJDK HotSpot. 
+						</span></p>
+					</section>
+
+					<section>
+						<h5>Container First?</h5>
+						<p><span style="font-size:32px">
+							Podemos alem do comum fazer aplicações ambientes serverless e Kubernetes, 
+							Oferece um modelo unificado de programação reativa e imperativa. [2]
+						</span></p>
+					</section>
+
+					<section>
+						<h5>Container First?</h5>
+						<p><span style="font-size:32px">
+							O Quarkus foi desenvolvido com o princípio "Container First", o que acaba resultando em muito baixo uso de memória e tempo de inicialização extremamente rápido. [2]
+						</span></p>
+					</section>
+
+					<section>
+						<h5>Suporte do Quarkus para GraalVM / SubstrateVM:</h5>
+						<p><span style="font-size:32px">
+							O aplicativo é compilado em sua imagem nativa, que inicia significativamente muito mais rapidamente e leva muito menos pilha em comparação com a JVM padrão.
+						</span></p>
+					</section>
+
+					<section>
+						<h5>Processamento de metadados do tempo de construção:</h5>
+						<p><span style="font-size:32px">
+							O Quarkus contém as apenas as classes necessárias para tempo de execução,
+							enquanto outros frameworks sobe todas as classes, que ficam suspensas por todo o ciclo de vida do aplicativo. 
+							Portanto, se você estiver usando o Quarkus, 
+							as classes não necessárias não serão carregadas na JVM e, 
+							por isso temos um uso de memória muito eficiente e um tempo de inicialização extremamente rápido.
+						</span></p>
+					</section>
+
+					<section>
+						<h5>API sem reflexão no Quarkus:</h5>
+						<p><span style="font-size:32px">
+							O Quarkus não usa a API de reflexão, reduzindo o tempo de inicialização e o uso de memória.
+						</span></p>
+					</section>
+					
+				</section>
+
+				<section>
+
+					<section>
+						<h5>Resumindo:</h5>
+						<img data-src="img/resumindo.jpeg" width="400" height="300">
+					</section>
+
+					<section>
+						<h5>Container First:</h5>
+						<p><span style="font-size:32px">
+							Mínimo necessário para rodar em containers.
+						</span></p>
+					</section>
+
+					<section>
+						<h5>Cloud Native:</h5>
+						<p><span style="font-size:32px">
+							Abraça os "12 factor architecture (https://12factor.net/pt_br/)" nos ambientes como Kubernetes.	
+						</span></p>
+					</section>
+
+					<section>
+						<h5>Microservice First:</h5>
+						<p><span style="font-size:32px">
+							Traz tempo de inicialização muito rápido.	
+						</span></p>
+					</section>
+				</section>
+
+				<section>
+					<h5>Algumas Features:</h5>
+					<ul style="font-size:24px">
+						<li>Live Reload/Hot Reload.</li>
+						<li>Programação Imperativa e Reativa.</li>
+						<li>Excelente para Serverless e Microservices.</li>
+						<li>Otimizado para Cloud.</li>
+						<li>Baixo consumo de Memória.</li>
+						<li>Startup mais rápido.</li>
+						<li>Otimizado para processos de curta duração.</li>
+						<li>Kubernetes/Cloud native.</li>
+						<li>Suporta Padrões e bibliotecas antigas.</li>
+						<li>Nível de eficiência do Go Lang.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h5>Arquitetura:</h5>
+					<p><span style="font-size:24px">
+						O Quarkus usa ahead-of-time (AOT) para otimizar o uber jar para que ele inicie muito rapidamente e com menos RAM do que um microsserviço tradicional em execução na JVM	
+					</p>
+				</section>
+
+				<section>
+					<h5>Performance de memória:</h5>
+					<img data-src="img/perf_black-quarkus.png">
+					<p><span style="font-size:24px">
+						Performance: Quarkus vs Spring Boot <br />
+						https://www.youtube.com/watch?v=oz-QSGy1DSo
+					   </span>
+					</p>
+				</section>
+
+				<section>
+					<h5>Hot Reload:</h5>
+					<p><span style="font-size:24px">
+						Ao executar no modo de desenvolvimento (./mvn compile quarkus:dev),
+						Quarkus vai forcecer o recurso de hot-reload.
+					</span></p>
+				</section>
+			
+				<section>
+					<section>
+						<h5>build</h5>
+						<img data-src="img/quarkus-denmark-2019-28-638.jpg">
+					</section>
+
+					<section>
+						<h5>Podemos usar o Quarkus Gerando Imagem nativa:</h5>
+						<p><span style="font-size:24px">./mvnw package -Pnative</span></p>
+						<img data-src="img/native-executable-process.png">
+					</section>
+					
+					<section>
+						<h5>Qual a vantagem?</h5>
+						<ul style="font-size:24px">
+							Isso pode levar alguns segundos para ser concluído. 
+							Como as imagens nativas tentam criar todo o código AOT para inicializar mais rapidamente, como resultado, teremos tempos de construção mais longos.
+							Podemos executar ./mvnw Verify -Pnative para verificar se nosso artefato nativo foi construído corretamente.
+						</ul>
+					</section>	
+				</section>
+
+				<section>
+					<h5>Especificações disponíveis:</h5>
+					<ul style="font-size:24px">
+						<li>Beans Validations;</li>
+						<li>CDI;</li>
+						<li>Logs;</li>
+						<li>Microprofile Config;</li>
+						<li>Microprofile Fault Tolerance;</li>
+						<li>Microprofile Healt;</li>
+						<li>Microprofile JWT;</li>
+						<li>Microprofile Metrics;</li>
+						<li>Microprofile OpenAPI;</li>
+						<li>Microprofile OpenTracing;</li>
+						<li>Microprofile TypeSafe Rest Client;</li>
+						<li>JAX-RS;</li>
+						<li>JPA/JDBC;</li>
+						<li>Servlets;</li>
+						<li>Transactions;</li>
+					</ul>	
+				</section>
+
+				<section>
+					<h5>E ainda acesso aos principais frameworks e ferramentas do mercado como:</h5>
+					<ul style="font-size:24px">
+						<li>Apache Camel;</li>
+						<li>Apache Kafka;</li>
+						<li>Hibernate;</li>
+						<li>Infinispan;</li>
+						<li>Jaeger;</li>
+						<li>Kubernetes;</li>
+						<li>Netty;</li>
+						<li>Prometheus;</li>
+						<li>RESTEasy;</li>
+						<li>Vert.x;</li>
+					</ul>	
+				</section>
+				
+				<section>
+					<img data-src="img/quarkus_extensions.png">
+				</section>
+
+				<section>
+					<h5>Setup:</h5>
+					<p><span style="font-size:24px"><a href="setup-quarkus.pdf">https://quarkus.io/guides/getting-started</a></span></p>
+				</section>
+				
+				<section>
+					<img data-src="img/thanks.jpg"  width="250" header="200">
+				</section>
+				
+				<section>
+					<span  style="font-size:24px">
+						<a href="https://martinfowler.com/articles/microservices.html" target="_blank">[1] - https://martinfowler.com/articles/microservices.html</a><br />
+						<a href="https://www.redhat.com/pt-br/topics/microservices/what-are-microservices" target="_blank">[2] - https://www.redhat.com/pt-br/topics/microservices/what-are-microservices</a><br />
+						
+						<a href="https://quarkus.io/blog/runtime-performance/" target="_blank">https://quarkus.io/blog/runtime-performance/</a><br />
+						<a href="https://quarkus.io/guides/performance-measure" target="_blank">https://quarkus.io/guides/performance-measure</a><br />
+						<a href="https://www.eclipse.org/community/eclipse_newsletter/2019/may/quarkus.php" target="_blank">https://www.eclipse.org/community/eclipse_newsletter/2019/may/quarkus.php</a><br />
+						<a href="https://redhat-developer-demos.github.io/quarkus-tutorial/quarkus-tutorial/index.html" target="_blank">https://redhat-developer-demos.github.io/quarkus-tutorial/quarkus-tutorial/index.html</a><br />
+					</span>	
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
